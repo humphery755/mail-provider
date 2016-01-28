@@ -19,6 +19,7 @@ type SmtpConfig struct {
 	Username string `json:"username"`
 	Password string `json:"password"`
 	From     string `json:"from"`
+	Istls     bool `json:"istls"`
 }
 
 type GlobalConfig struct {

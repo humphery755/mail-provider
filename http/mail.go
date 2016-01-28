@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/open-falcon/mail-provider/config"
-	"github.com/toolkits/smtp"
+	"github.com/humphery755/mail-provider/config"
+	"github.com/humphery755/smtp"
 	"github.com/toolkits/web/param"
 )
 
@@ -25,12 +25,20 @@ func configProcRoutes() {
 		tos = strings.Replace(tos, ",", ";", -1)
 
 		s := smtp.New(cfg.Smtp.Addr, cfg.Smtp.Username, cfg.Smtp.Password)
-		err := s.SendMail(cfg.Smtp.From, tos, subject, content)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		} else {
-			http.Error(w, "success", http.StatusOK)
-		}
+		if(cfg.Smtp.Istls){
+                err := s.SendMail4Tls(cfg.Smtp.From, tos, subject, content)
+                if err != nil {
+                    http.Error(w, err.Error(), http.StatusInternalServerError)
+                    return
+                }
+        } else {
+                err := s.SendMail(cfg.Smtp.From, tos, subject, content)
+                if err != nil {
+                    http.Error(w, err.Error(), http.StatusInternalServerError)
+                    return
+                }
+        }
+        http.Error(w, "success", http.StatusOK)
 	})
 
 }
