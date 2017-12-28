@@ -5,7 +5,7 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 
-	"github.com/humphery755/mail-provider/config"
+	"../config"
 )
 
 func init() {

@@ -3,7 +3,7 @@ package http
 import (
 	"net/http"
 
-	"github.com/humphery755/mail-provider/config"
+	"../config"
 )
 
 func configCommonRoutes() {
